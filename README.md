@@ -1,2 +1,2 @@
 # OpenGLDemo
-JNI，C++实现OpenGL渲染三角形
+1. JNI，C++实现OpenGL渲染三角形
