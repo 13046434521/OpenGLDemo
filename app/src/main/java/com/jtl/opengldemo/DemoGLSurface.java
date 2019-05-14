@@ -25,7 +25,7 @@ public class DemoGLSurface extends GLSurfaceView {
     }
 
     private void init(){
-        mTriangleRender=new TriangleRender();
+        mTriangleRender = new TriangleRender(getContext());
 
         this.setEGLContextClientVersion(2);
         this.setRenderer(mTriangleRender);

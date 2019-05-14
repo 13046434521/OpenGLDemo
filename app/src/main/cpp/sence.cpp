@@ -5,6 +5,9 @@ GLuint vbo;
 GLuint program;
 GLint projectLocation, viewLocation, modelLocation, positionLocation, colorLocation;
 glm::mat4 modelMatrix, viewMatrix, projectionMatrix;
+
+AAssetManager *aAssetManager = nullptr;
+
 const char *vsCode = "attribute vec4 a_Position;\n"
                      "uniform mat4 M;"
                      "uniform mat4 V;"
@@ -21,6 +24,10 @@ const char *fsCode = "uniform vec4 u_Color;\n"
                      "}\n";
 float color[] = {1.0f, 0.75f, 0.145f, 1.0f};
 
+void initAssetManager(JNIEnv *env, jobject assetManager) {
+    aAssetManager = AAssetManager_fromJava(env, assetManager);
+}
+
 void initGL() {
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     float data[] = {
@@ -34,8 +41,12 @@ void initGL() {
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 12, data, GL_STATIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     //编译Shader
-    GLuint vsShader = compileShader(GL_VERTEX_SHADER, vsCode);
-    GLuint fsShader = compileShader(GL_FRAGMENT_SHADER, fsCode);
+    char *vsContent = loadFileContent(aAssetManager, "shader/vertex.glsl");//不带assets
+    char *fsContent = loadFileContent(aAssetManager, "shader/fragment.glsl");
+    GLuint vsShader = compileShader(GL_VERTEX_SHADER, vsContent);
+    GLuint fsShader = compileShader(GL_FRAGMENT_SHADER, fsContent);
+//    GLuint vsShader = compileShader(GL_VERTEX_SHADER, vsCode);
+//    GLuint fsShader = compileShader(GL_FRAGMENT_SHADER, fsCode);
     //创建program,绑定顶点着色器，片元着色器
     program = createProgram(vsShader, fsShader);
     //获取program中着色器中相对应参数的句柄
@@ -50,7 +61,6 @@ void changeViewPort(float width, float height) {
     glViewport(0, 0, width, height);
     //计算投影矩阵（透视投影）
     projectionMatrix = glm::perspective(45.0f, width / height, 0.1f, 1000.0f);
-
 }
 
 void drawOneFrame() {

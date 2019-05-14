@@ -17,4 +17,9 @@ extern "C"
 JNIEXPORT void JNICALL
 Java_com_jtl_opengldemo_NativeInterface_onDraw(JNIEnv *env, jclass type){
     drawOneFrame();
+}extern "C"
+JNIEXPORT void JNICALL
+Java_com_jtl_opengldemo_NativeInterface_initAssetManager(JNIEnv *env, jclass type,
+                                                         jobject assetManager) {
+    initAssetManager(env, assetManager);
 }
