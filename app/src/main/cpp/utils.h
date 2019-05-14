@@ -5,5 +5,3 @@
 GLuint compileShader(GLenum shaderType, const char *fsShader);
 
 GLuint createProgram(GLuint vsShader,GLuint fsShader);
-
-void checkGLError();

@@ -6,8 +6,6 @@ import android.util.AttributeSet;
 
 import com.jtl.opengldemo.render.TriangleRender;
 
-import javax.microedition.khronos.opengles.GL;
-
 /**
  * 作者:jtl
  * 日期:Created in 2019/5/13 13:36

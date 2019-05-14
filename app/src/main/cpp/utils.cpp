@@ -43,7 +43,3 @@ GLuint createProgram(GLuint vsShader,GLuint fsShader) {
 
     return program;
 }
-
-void checkGLError() {
-
-}
